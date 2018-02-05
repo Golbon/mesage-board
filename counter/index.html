@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Stateful Component Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="node_modules/react/umd/react.development.js"></script>
+  <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.js" crossorigin></script>
+</head>
+<body>
+  <div id="anchor"></div>
+
+  <script type="text/babel">
+class App extends React.Component {
+
+constructor(props) {
+
+super(props);
+
+this.state = {
+  counters: 0,
+
+  counterList: [0]
+
+  
+
+}
+
+}
+
+addCounterBlock() {
+
+const { counterList, counters } = this.state;
+
+this.setState({
+
+  counterList: [...counterList, counters],
+
+  counters: counters + 1
+
+})
+
+}
+
+
+
+render() {
+
+const { counterList } = this.state;
+
+const counterMap = counterList.map(item => <Counter key={item} />)
+
+console.log(counterMap)
+
+return (
+
+<div>
+
+<input type= "button" value="add counter" onClick={() => this.addCounterBlock()} />
+
+{counterMap}
+
+</div>) 
+
+}
+
+}
+
+
+
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { count: 0 }
+  }
+
+  addNumber = () => {
+    this.setState({
+      count: this.state.count+1
+    })
+  }
+  removeNumber = () => {
+    this.setState({
+      count: this.state.count-1
+    })
+  }
+      render() {
+        return (
+            (
+     <div>
+       <button onClick={this.addNumber}>
+          Touch Here
+       </button>
+       <button onClick={this.removeNumber}>
+          remove
+       </button>
+       <div>
+            { this.state.count }
+        </div>
+      </div>
+    )
+        )
+  }
+    }
+
+    
+    ReactDOM.render(<App />, document.getElementById('anchor'));
+  </script>
+</body>
+</html>
